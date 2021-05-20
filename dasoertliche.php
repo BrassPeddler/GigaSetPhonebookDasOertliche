@@ -1,5 +1,4 @@
 <?php
-
 $addAreaCode = false;
 
 #-----------------------------------------#
@@ -20,7 +19,7 @@ function addTagIfNotZero($tag, $str) {
 	return $str != '0' ? '<'.$tag.'>'.$str.'</'.$tag.'>' : '';
 }
 function handlerData($content){
-    preg_match('/var handlerData = \[\[(.*)\]\]/', $content, $handler_array);
+    preg_match('/var handlerData =\[\[(.*)\]\];/', $content, $handler_array);
     if(count($handler_array) != 0){
         $handler_array = explode("],[",$handler_array[1]);
         $cnt = count($handler_array);
@@ -95,10 +94,9 @@ if(isset($_GET["hm"]) && $_GET["hm"] != "*") {
 }
 
 if(isset($_GET["ln"]) && $_GET["ln"] != "*") {
-	$queryResult = collectData($_GET["ln"],$_GET["ct"]);
+	$queryResult = collectData(urlencode($_GET["ln"]),urlencode($_GET["ct"]));
 }
 
 header('Content-Type: application/xml');
 print(createXMLList($queryResult));
-
 ?>
